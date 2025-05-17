@@ -9,7 +9,7 @@ var _peer := ENetMultiplayerPeer.new()
 
 
 func _add_player(id := 1) -> void:
-	var player: BasicPlayer = player_scene.instantiate()
+	var player: Player = player_scene.instantiate()
 	player.name = str(id)
 	call_deferred("add_child", player)
 
