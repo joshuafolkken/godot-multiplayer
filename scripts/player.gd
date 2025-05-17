@@ -1,7 +1,7 @@
 class_name BasicPlayer
 extends CharacterBody2D
 
-const SPEED = 400
+const SPEED = 1000
 
 
 func _enter_tree() -> void:
