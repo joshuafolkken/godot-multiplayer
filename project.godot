@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
-config/version="0.48.1"
-run/main_scene="uid://djcdy0d718ei3"
+config/name="godot-multiplayer"
+config/version="0.1.0"
+run/main_scene="uid://c2j54imxixw3u"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
