@@ -1,11 +1,16 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED = 1000
+const SPEED: int = 1000
 
 var _chat_timer := Timer.new()
+var _message := "Hiya!"
 
 @onready var _chat_label: Label = $ChatLabel
+
+
+func set_message(message: String) -> void:
+	_message = message
 
 
 func _ready() -> void:
@@ -13,7 +18,7 @@ func _ready() -> void:
 	position = viewport_rect.size / 2
 
 	_init_chat_timer()
-	show_chat_message("Hiya!")
+	show_chat_message(_message)
 
 
 func _init_chat_timer() -> void:

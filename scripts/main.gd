@@ -1,58 +1,56 @@
 class_name Main
-extends Node
+extends Node2D
 
-var _test_color_rect: ColorRect
-var _timer: Timer
-
-@onready var version_label: Label = $VersionLabel
-@onready var datetime_label: Label = $DateTimeLabel
+@export var player_scene: PackedScene
 
 
-func _init() -> void:
-	_test_color_rect = ColorRect.new()
-	add_child(_test_color_rect)
+func add_player(id: int = 1, message: String = "") -> Player:
+	var player: Player = player_scene.instantiate()
+	player.name = str(id)
+	player.set_message(message)
+	call_deferred("add_child", player)
 
-	_init_timer()
-
-
-func _init_timer() -> void:
-	_timer = Timer.new()
-	_timer.wait_time = 1.0  # 1秒間隔
-	_timer.connect("timeout", _on_timer_timeout)
-	add_child(_timer)
+	return player
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	version_label.text = "v%s" % ProjectSettings.get_setting("application/config/version")
-	_timer.start()
-	_update_datetime()
+func _on_host_button_pressed() -> void:
+	var server := Server.new()
+	add_child(server)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _on_join_button_pressed() -> void:
+	var client := Client.new()
+	add_child(client)
 
 
-func _on_timer_timeout() -> void:
-	_update_datetime()
+func _on_send_button_pressed() -> void:
+	var message_text_edit: TextEdit = $MessageTextEdit
+	var message := message_text_edit.text.strip_edges(true, true)
+	if message.is_empty():
+		return
+
+	message_text_edit.clear()
+	message_text_edit.grab_focus()
+
+	var my_player: Player = get_node(str(multiplayer.get_unique_id()))
+	if my_player:
+		my_player.show_chat_message(message)
 
 
-func _update_datetime() -> void:
-	var datetime := Time.get_datetime_dict_from_system()
-	var format := tr("DATETIME_FORMAT")
-	datetime_label.text = (
-		format
-		% [
-			datetime.year,
-			datetime.month,
-			datetime.day,
-			datetime.hour,
-			datetime.minute,
-			datetime.second
-		]
-	)
+func _input_send(event: InputEvent) -> void:
+	var message_text_edit: TextEdit = $MessageTextEdit
+	if not message_text_edit.has_focus():
+		return
+
+	if not event is InputEventKey:
+		return
+
+	var key_event := event as InputEventKey
+
+	if key_event.keycode == KEY_ENTER:
+		get_viewport().set_input_as_handled()
+		_on_send_button_pressed()
 
 
-func _on_language_button_language_changed(_locale_code: String) -> void:
-	_update_datetime()
+func _input(event: InputEvent) -> void:
+	_input_send(event)

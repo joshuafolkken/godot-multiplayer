@@ -1,0 +1,20 @@
+class_name NetworkConfig
+extends Node
+
+const DEV_ADDRESS: String = "localhost"
+const DEV_PORT: int = 50000
+
+const PROD_ADDRESS: String = "your-game-server.com"
+const PROD_PORT: int = 5000
+
+
+static func get_address() -> String:
+	if OS.is_debug_build():
+		return DEV_ADDRESS
+	return PROD_ADDRESS
+
+
+static func get_port() -> int:
+	if OS.is_debug_build():
+		return DEV_PORT
+	return PROD_PORT
