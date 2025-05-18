@@ -34,5 +34,12 @@ offset_right = 946.0
 offset_bottom = 54.0
 text = "Send"
 
+[node name="ConnectionLabel" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 547.0
+offset_right = 197.0
+offset_bottom = 566.0
+text = "Ready."
+
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="Chat/SendButton" to="Chat" method="_on_send_button_pressed"]
