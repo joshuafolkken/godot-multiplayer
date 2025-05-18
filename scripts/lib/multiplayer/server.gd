@@ -7,7 +7,13 @@ var _player: Player
 
 
 func _ready() -> void:
-	_peer.create_server(NetworkConfig.get_port())
+	var port := NetworkConfig.get_port()
+	var result := _peer.create_server(NetworkConfig.get_port())
+	if result != OK:
+		push_error("Failed to create server: %s, port: %d" % [error_string(result), port])
+		get_tree().quit()
+		return
+
 	multiplayer.multiplayer_peer = _peer
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
