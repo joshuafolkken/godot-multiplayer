@@ -23,3 +23,21 @@ func _on_peer_connected(id: int) -> void:
 
 func _on_peer_disconnected(id: int) -> void:
 	_player.show_chat_message("🔥 client disconnected: %d" % id)
+
+
+static func is_server_mode() -> bool:
+	var args := OS.get_cmdline_args()
+	if not args.size() > 0:
+		return false
+
+	for arg: String in args:
+		match arg:
+			"--server":
+				return true
+
+	return false
+
+
+static func start(node: Node) -> void:
+	var server := Server.new()
+	node.add_child(server)
