@@ -10,7 +10,7 @@ func _ready() -> void:
 	($Chat as Chat).chat_message_sent.connect(_on_chat_message_sent)
 
 	if Server.is_server_mode():
-		Server.start(self)
+		WebSocketServer.start(self)
 		($JoinButton as Button).visible = false
 
 
@@ -28,7 +28,7 @@ func show_connection_message(message: String) -> void:
 
 
 func _on_join_button_pressed() -> void:
-	var client := Client.start(self)
+	var client := WebSocketClient.start(self)
 	show_connection_message("Connecting to server ...")
 	client.connected_to_server.connect(_on_client_connected_to_server)
 	client.connection_failed.connect(_on_client_connection_failed)
