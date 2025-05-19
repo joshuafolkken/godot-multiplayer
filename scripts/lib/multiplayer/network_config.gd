@@ -5,7 +5,7 @@ const DEV_ADDRESS: String = "localhost"
 const DEV_PORT: int = 50000
 
 const PROD_ADDRESS: String = "your-game-server.com"
-const PROD_PORT: int = 5000
+const PROD_PORT: int = 50000
 
 
 static func get_address() -> String:
@@ -18,3 +18,7 @@ static func get_port() -> int:
 	if OS.is_debug_build():
 		return DEV_PORT
 	return PROD_PORT
+
+
+static func get_websocket_url() -> String:
+	return "ws://%s:%s" % [get_address(), get_port()]
