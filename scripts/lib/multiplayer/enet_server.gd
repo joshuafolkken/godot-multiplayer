@@ -1,9 +1,9 @@
-class_name Server
+class_name ENetServer
 extends Node
 
 var _peer := ENetMultiplayerPeer.new()
 var _main_scene: Main
-var _player: Player
+# var _player: Player
 
 
 func _ready() -> void:
@@ -19,22 +19,26 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 	_main_scene = get_parent()
-	_player = _main_scene.add_player(1, "🟢 Server online — port %d" % NetworkConfig.get_port())
+	print("🟢 Server online — port %d" % NetworkConfig.get_port())
+	# _player = _main_scene.add_player(1, "🟢 Server online — port %d" % NetworkConfig.get_port())
 
 
 func _on_peer_connected(id: int) -> void:
-	_player.show_chat_message("⚡ client connected: %d" % id)
+	print("⚡ client connected: %d" % id)
+	# _player.show_chat_message("⚡ client connected: %d" % id)
 	_main_scene.add_player(id)
 
 
 func _on_peer_disconnected(id: int) -> void:
-	_player.show_chat_message("🔥 client disconnected: %d" % id)
+	print("🔥 client disconnected: %d" % id)
+	# _player.show_chat_message("🔥 client disconnected: %d" % id)
 
 
 static func is_server_mode() -> bool:
+	if OS.get_environment("DEDICATED_SERVER") == "1":
+		return true
+
 	var args := OS.get_cmdline_args()
-	if not args.size() > 0:
-		return false
 
 	for arg: String in args:
 		match arg:
@@ -45,5 +49,5 @@ static func is_server_mode() -> bool:
 
 
 static func start(node: Node) -> void:
-	var server := Server.new()
+	var server := ENetServer.new()
 	node.add_child(server)

@@ -1,4 +1,4 @@
-class_name Client
+class_name ENetClient
 extends Node
 
 signal connected_to_server
@@ -24,8 +24,8 @@ func _on_connection_failed() -> void:
 	connection_failed.emit()
 
 
-static func start(node: Node) -> Client:
-	var client := Client.new()
+static func start(node: Node) -> ENetClient:
+	var client := ENetClient.new()
 	node.add_child(client)
 
 	return client
