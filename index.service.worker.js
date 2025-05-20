@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1747740240|5419138';
+const CACHE_VERSION = '1747785219|7322121';
 /** @type {string} */
 const CACHE_PREFIX = 'godot-multiplaye-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
