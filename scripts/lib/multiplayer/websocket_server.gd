@@ -31,6 +31,7 @@ func _on_peer_connected(id: int) -> void:
 
 func _on_peer_disconnected(id: int) -> void:
 	print("🔥 client disconnected: %d" % id)
+	_main_scene.remove_player(id)
 	# _player.show_chat_message("🔥 client disconnected: %d" % id)
 
 

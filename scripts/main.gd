@@ -26,6 +26,12 @@ func add_player(id: int = 1, message: String = "") -> Player:
 	return player
 
 
+func remove_player(id: int) -> void:
+	var player := get_node_or_null(str(id))
+	if player:
+		player.queue_free()
+
+
 func show_connection_message(message: String) -> void:
 	connection_label.text = message
 
