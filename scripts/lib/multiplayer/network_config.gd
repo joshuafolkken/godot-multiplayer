@@ -4,7 +4,7 @@ extends Node
 const DEV_ADDRESS: String = "localhost"
 const DEV_PORT: int = 50000
 
-const PROD_ADDRESS: String = "your-game-server.com"
+const PROD_ADDRESS: String = "34.83.21.101"
 const PROD_PORT: int = 50000
 
 

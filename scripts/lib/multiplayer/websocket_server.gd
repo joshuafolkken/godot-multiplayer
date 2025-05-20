@@ -3,7 +3,7 @@ extends Node
 
 var _peer := WebSocketMultiplayerPeer.new()
 var _main_scene: Main
-var _player: Player
+# var _player: Player
 
 
 func _ready() -> void:
@@ -19,16 +19,19 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 	_main_scene = get_parent()
-	_player = _main_scene.add_player(1, "🟢 Server online — WebSocket %d" % NetworkConfig.get_port())
+	print("🟢 Server online — WebSocket %d" % NetworkConfig.get_port())
+	# _player = _main_scene.add_player(1, "🟢 Server online — WebSocket %d" % NetworkConfig.get_port())
 
 
 func _on_peer_connected(id: int) -> void:
-	_player.show_chat_message("⚡ client connected: %d" % id)
+	print("⚡ client connected: %d" % id)
+	# _player.show_chat_message("⚡ client connected: %d" % id)
 	_main_scene.add_player(id)
 
 
 func _on_peer_disconnected(id: int) -> void:
-	_player.show_chat_message("🔥 client disconnected: %d" % id)
+	print("🔥 client disconnected: %d" % id)
+	# _player.show_chat_message("🔥 client disconnected: %d" % id)
 
 
 static func start(node: Node) -> void:
