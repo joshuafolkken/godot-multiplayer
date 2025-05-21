@@ -1,24 +1,25 @@
 class_name NetworkConfig
 extends Node
 
+const IS_LOCAL_DEBUG: bool = false
+
 const DEV_ADDRESS: String = "localhost"
 const DEV_PORT: int = 50000
 
-const PROD_ADDRESS: String = "34.83.21.101"
+const PROD_ADDRESS: String = "joshuafolkken.duckdns.org"
 const PROD_PORT: int = 50000
 
 
 static func get_address() -> String:
-	if OS.is_debug_build():
-		return DEV_ADDRESS
-	return PROD_ADDRESS
+	return DEV_ADDRESS if IS_LOCAL_DEBUG else PROD_ADDRESS
 
 
 static func get_port() -> int:
-	if OS.is_debug_build():
-		return DEV_PORT
-	return PROD_PORT
+	return DEV_PORT if IS_LOCAL_DEBUG else PROD_PORT
 
 
 static func get_websocket_url() -> String:
-	return "ws://%s:%s" % [get_address(), get_port()]
+	if IS_LOCAL_DEBUG:
+		return "ws://%s:%s" % [get_address(), get_port()]
+
+	return "wss://%s" % get_address()
