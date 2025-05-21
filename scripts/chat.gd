@@ -25,7 +25,7 @@ func _input_send(event: InputEvent) -> void:
 
 	var key_event := event as InputEventKey
 
-	if key_event.keycode == KEY_ENTER:
+	if key_event.keycode == KEY_ENTER and key_event.pressed:
 		get_viewport().set_input_as_handled()
 		_on_send_button_pressed()
 
