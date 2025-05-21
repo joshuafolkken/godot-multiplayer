@@ -24,7 +24,7 @@ func _init_timer() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	version_label.text = "v%s" % ProjectSettings.get_setting("application/config/version")
+	version_label.text = "v%s" % Project.get_version()
 	_timer.start()
 	_update_datetime()
 

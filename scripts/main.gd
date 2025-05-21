@@ -7,14 +7,16 @@ extends Node2D
 
 
 func _ready() -> void:
+	var info := Project.get_info()
+	print(info)
+
 	($Chat as Chat).chat_message_sent.connect(_on_chat_message_sent)
 
 	if ENetServer.is_server_mode():
-		print("server mode")
 		WebSocketServer.start(self)
 		($JoinButton as Button).visible = false
 	else:
-		print("client mode")
+		($VersionLabel as Label).text = info
 
 
 func add_player(id: int = 1, message: String = "") -> Player:
