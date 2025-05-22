@@ -6,7 +6,7 @@ const CHAT_MESSAGE_DURATION: float = 10.0
 var _chat_timer := Timer.new()
 var _message := "Hiya!"
 
-@onready var _tween := create_tween()
+@onready var _tween: Tween
 @onready var _chat_label: Label = $ChatLabel
 
 
@@ -34,7 +34,9 @@ func _enter_tree() -> void:
 
 
 func move(target_position: Vector2) -> void:
-	_tween.kill()
+	if _tween != null:
+		_tween.kill()
+
 	_tween = create_tween()
 	# _tween.set_parallel(true)
 
@@ -74,3 +76,11 @@ func show_chat_message(message: String) -> void:
 	_chat_label.text = message
 	_chat_label.visible = true
 	_chat_timer.start()
+
+	if !_tween or not _tween.is_running():
+		if _tween != null:
+			_tween.kill()
+
+		_tween = create_tween()
+		_tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
+		_tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.1)
