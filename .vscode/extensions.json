@@ -8,6 +8,7 @@
     "mhutchie.git-graph",
     "github.vscode-pull-request-github",
     "github.vscode-github-actions",
-    "arthurlobo.easy-codesnap"
+    "arthurlobo.easy-codesnap",
+    "matthewpi.caddyfile-support"
   ]
 }
