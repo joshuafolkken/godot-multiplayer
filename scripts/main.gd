@@ -3,20 +3,23 @@ extends Node2D
 
 @export var player_scene: PackedScene
 
-@onready var connection_label: Label = $ConnectionLabel
+@onready var _version_label: Label = $VersionLabel
+@onready var _chat: Chat = $Chat
+@onready var _join_button: Button = $JoinButton
+@onready var _connection_label: Label = $ConnectionLabel
 
 
 func _ready() -> void:
 	var info := Project.get_info()
 	print(info)
 
-	($Chat as Chat).chat_message_sent.connect(_on_chat_message_sent)
+	_chat.chat_message_sent.connect(_on_chat_message_sent)
 
 	if ENetServer.is_server_mode():
 		WebSocketServer.start(self)
-		($JoinButton as Button).visible = false
+		_join_button.visible = false
 	else:
-		($VersionLabel as Label).text = info
+		_version_label.text = info
 
 
 func add_player(id: int = 1, message: String = "") -> Player:
@@ -35,7 +38,7 @@ func remove_player(id: int) -> void:
 
 
 func show_connection_message(message: String) -> void:
-	connection_label.text = message
+	_connection_label.text = message
 
 
 func _on_join_button_pressed() -> void:
