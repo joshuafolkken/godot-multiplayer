@@ -1,10 +1,15 @@
 joshuafolkken.duckdns.org {
-    @websockets {
-        header Connection *Upgrade*
-        header Upgrade websocket
-    }
+	log {
+		output file /var/log/caddy/access.log
+		format console
+	}
 
-    reverse_proxy @websockets 127.0.0.1:50000
+	@websockets {
+		header Connection *Upgrade*
+		header Upgrade websocket
+	}
 
-    # respond / "It works!" 200
+	reverse_proxy @websockets 127.0.0.1:50000
+
+	# respond / "It works!" 200
 }
